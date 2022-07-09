@@ -1,0 +1,29 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/brands/add" method="POST">
+                    <div class="form-group">
+                        <label for="name">Brand name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               required
+                               placeholder="Enter product name">
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/brands">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</th:block>

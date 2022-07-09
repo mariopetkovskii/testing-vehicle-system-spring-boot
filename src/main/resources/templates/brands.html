@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="pt-2">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="brand : ${brands}">
+                <td th:text="${brand.getName()}"></td>
+                <td class="text-right">
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:action="@{'/brands/delete/{id}' (id=${brand.getId()})}" th:method="DELETE">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash">Delete</i>
+                            </button>
+                        </form>
+                    </th:block>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-right"><a href="/brands/add" class="btn btn-success">Add new brand</a></div>
+    </div>
+</div>

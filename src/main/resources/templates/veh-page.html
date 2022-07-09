@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="pt-2">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Type</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vehicle : ${vehicles}">
+                <td th:text="${vehicle.getVehicleBrand().getName()}"></td>
+                <td th:text="${vehicle.getModel()}"></td>
+                <td th:text="${vehicle.getType()}"></td>
+                <td th:text="${vehicle.getPrice()}"></td>
+                <td class="text-right">
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:action="@{'/vehicles/delete/{id}' (id=${vehicle.getId()})}" th:method="DELETE">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash">Delete</i>
+                            </button>
+                        </form>
+                    </th:block>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-right"><a href="/vehicles/add" class="btn btn-success">Add new vehicle</a></div>
+    </div>
+</div>

@@ -1,24 +1,20 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
-        </div>
-    </section>
+
 
     <div class="container">
         <div class="row">
             <div class="col-md-5">
                 <form action="/vehicles/add" method="POST">
-                    <input id="id" type="hidden" name="id" th:value="(${vehicles} != null ? ${vehicles.getId()} : '')">
+                    <input id="id" type="hidden" name="id" th:value="(${vehicle} != null ? ${vehicle.getId()} : '')">
                     <div class="form-group">
                         <select name="brand" class="form-control">
-                            <option th:if="${vehicles} != null"
-                                    th:selected="${vehicles.getVehicleBrand() != null && vehicles.getVehicleBrand().getId() == v.getId()}"
-                                    th:each="v : ${vehicles}"
-                                    th:value="${v.getId()}"
-                                    th:text="${v.getVehicleBrand()}">
+                            <option th:if="${vehicle} != null"
+                                    th:selected="${vehicle.getVehicleBrand() != null && vehicle.getVehicleBrand().getId() == brand.getId()}"
+                                    th:each="brand : ${brands}"
+                                    th:value="${brand.getId()}"
+                                    th:text="${brand.getName()}">
                             </option>
-                            <option th:if="${vehicles} == null"
+                            <option th:if="${vehicle} == null"
                                     th:each="brand : ${brands}"
                                     th:value="${brand.getId()}"
                                     th:text="${brand.getName()}">
@@ -31,11 +27,11 @@
                                class="form-control"
                                id="model"
                                name="model"
-                               th:value="(${vehicles} != null ? ${vehicles.getModel()} : '')"
+                               th:value="(${vehicle} != null ? ${vehicle.getModel()} : '')"
                                required
                                placeholder="Enter product name">
                     </div>
-                    <select name="type">
+                    <select name="type" class="form-control">
                         <option value="CAR">CAR</option>
                         <option value="MOTOR">MOTOR</option>
                         <option value="TRUCK">TRUCK</option>
@@ -47,7 +43,7 @@
                                class="form-control"
                                id="price"
                                name="price"
-                               th:value="(${vehicles} != null ? ${vehicles.getPrice()} : '')"
+                               th:value="(${vehicle} != null ? ${vehicle.getPrice()} : '')"
                                required
                                placeholder="Enter product name">
                     </div>

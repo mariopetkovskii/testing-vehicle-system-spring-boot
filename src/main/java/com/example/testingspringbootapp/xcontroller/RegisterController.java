@@ -39,11 +39,10 @@ public class RegisterController {
                            @RequestParam String password,
                            @RequestParam String repeatedPassword,
                            @RequestParam String name,
-                           @RequestParam String surname,
-                           @RequestParam(required = false) Role role) {
+                           @RequestParam String surname) {
         try{
             Role role1= Role.ROLE_USER;
-            this.userService.register(username, password, repeatedPassword, name, surname,role1);
+            this.userService.register(username, password, repeatedPassword, name, surname);
             return "redirect:/login";
         } catch (NotGoodException | PasswordsDoNotMatchException exception) {
             return "redirect:/register?error=" + exception.getMessage();

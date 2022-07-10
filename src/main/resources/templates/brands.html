@@ -22,6 +22,8 @@
             </tr>
             </tbody>
         </table>
-        <div class="text-right"><a href="/brands/add" class="btn btn-success">Add new brand</a></div>
+        <th:block sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+            <div class="text-right"><a href="/brands/add" class="btn btn-success">Add new brand</a></div>
+        </th:block>
     </div>
 </div>

@@ -1,12 +1,12 @@
 package com.example.testingspringbootapp.config;
 
-import com.example.testingspringbootapp.model.Vehicle;
-import com.example.testingspringbootapp.model.VehicleBrand;
-import com.example.testingspringbootapp.model.VehicleType;
+import com.example.testingspringbootapp.model.*;
+import com.example.testingspringbootapp.repository.UserRepository;
 import com.example.testingspringbootapp.repository.VehicleBrandRepository;
 import com.example.testingspringbootapp.repository.VehicleRepository;
 import com.example.testingspringbootapp.service.VehicleBrandService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +18,8 @@ public class DataInitializer {
     private final VehicleBrandService vehicleBrandService;
     private final VehicleBrandRepository vehicleBrandRepository;
     private final VehicleRepository vehicleRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void initData(){
@@ -41,6 +43,12 @@ public class DataInitializer {
         this.vehicleRepository.save(vehicle3);
         this.vehicleRepository.save(vehicle4);
 
+        User user = new User("admin", passwordEncoder.encode("admin"), "admin", "admin");
+        user.setRole(Role.ROLE_ADMINISTRATOR);
+        User user1 = new User("user", passwordEncoder.encode("user"), "user", "user");
+
+        this.userRepository.save(user);
+        this.userRepository.save(user1);
 
     }
 }

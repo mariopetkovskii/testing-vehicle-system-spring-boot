@@ -46,4 +46,24 @@ public class VehicleServiceImpl implements VehicleService {
     public void delete(Long id) {
         this.vehicleRepository.deleteById(id);
     }
+
+    @Override
+    public List<Vehicle> listAllByGivenData(Double price, VehicleType type, String model) {
+        if(price != null && type != null && model != null && !model.isEmpty()){
+            return this.vehicleRepository.findAllByPriceLessThanAndTypeLikeAndModelLike(price, type, model);
+        }else if(price != null && type != null){
+            return this.vehicleRepository.findAllByPriceLessThanAndTypeLike(price, type);
+        }else if(price != null && model != null && !model.isEmpty()){
+            return this.vehicleRepository.findAllByPriceLessThanAndModelLike(price, model);
+        }else if(type != null && model != null && !model.isEmpty()){
+            return this.vehicleRepository.findAllByTypeLikeAndModelLike(type, model);
+        }else if(price != null){
+            return this.vehicleRepository.findAllByPriceLessThan(price);
+        }else if(type != null){
+            return this.vehicleRepository.findAllByType(type);
+        }else if(model != null){
+            return this.vehicleRepository.findAllByModelLike(model);
+        }else
+        return this.vehicleRepository.findAll();
+    }
 }

@@ -27,7 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/brands", "/vehicles", "/delete", "/delete/**", "/vehicles/add", "/register", "/login").permitAll()
+                .antMatchers("/", "/register", "/login").permitAll()
+                .antMatchers("/vehicles/add", "/vehicles/edit-form/**", "/vehicles/delete/**", "/brands/add", "/brands/delete/**")
+                .hasRole("ADMINISTRATOR")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -40,7 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling().accessDeniedPage("/access_denied");
     }
 
 

@@ -16,4 +16,6 @@ public interface VehicleService {
     Vehicle edit(Long id, VehicleBrand vehicleBrand, String model, VehicleType type, Double price);
 
     void delete(Long id);
+
+    List<Vehicle> listAllByGivenData(Double price, VehicleType type, String model);
 }

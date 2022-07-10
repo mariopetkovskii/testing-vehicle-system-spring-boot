@@ -6,8 +6,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Data
 @Entity
@@ -30,19 +32,19 @@ public class User implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Vehicle> favouriteVehicles;
+
     public User() {
     }
 
-    public User(String username, String password, String name, String surname, Role role) {
+    public User(String username, String password, String name, String surname) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.role = role;
-    }
-
-    public Role getRole() {
-        return role;
+        this.role = Role.ROLE_USER;
+        this.favouriteVehicles = new ArrayList<>();
     }
 
     @Override
@@ -75,31 +77,5 @@ public class User implements UserDetails {
         return username;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

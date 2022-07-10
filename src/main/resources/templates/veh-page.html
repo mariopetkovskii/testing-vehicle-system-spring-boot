@@ -1,5 +1,24 @@
 <div class="container">
     <div class="pt-2">
+        <div class="row">
+            <div class="col-md-3">
+                <form id="filter-form">
+                    <label for="price">Price</label>
+                    <input id="price" name="price" class="form-control" type="number"/>
+                    <label for="type">Type</label>
+                    <select id="type" name="type" class="form-control">
+                        <option value="">All</option>
+                        <option value="CAR">CAR</option>
+                        <option value="MOTOR">MOTOR</option>
+                        <option value="TRUCK">TRUCK</option>
+                        <option value="BUS">BUS</option>
+                    </select>
+                    <label for="containsModel">Model</label>
+                    <input id="containsModel" name="containsModel" class="form-control" type="text"/>
+                    <button id="filter" class="btn btn-outline-dark" type="submit">Filter</button>
+                </form>
+            </div>
+        </div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -16,24 +35,34 @@
                 <td th:text="${vehicle.getType()}"></td>
                 <td th:text="${vehicle.getPrice()}"></td>
                 <td class="text-right">
-                    <th:block>
-                        <form th:action="@{'/vehicles/delete/{id}' (id=${vehicle.getId()})}" th:method="DELETE">
+                    <div class="btn-group">
+                        <th:block sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+                            <form th:action="@{'/vehicles/delete/{id}' (id=${vehicle.getId()})}" th:method="DELETE">
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger">
+                                    <i class="fa fa-trash">Delete</i>
+                                </button>
+                            </form>
+                            |
+                            <a th:href="@{'/vehicles/edit-form/{id}' (id=${vehicle.getId()})}"
+                               class="btn btn-sm btn-info pl-1">
+                                <i>Edit</i>
+                            </a> |
+                        </th:block>
+                        <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}" th:method="POST">
                             <button type="submit"
-                                    class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash">Delete</i>
+                                    class="btn btn-sm btn-success pl-1">
+                                <i class="fa fa-trash">Add to favorites</i>
                             </button>
                         </form>
-                    </th:block>
-                    <th:block>
-                        <a th:href="@{'/vehicles/edit-form/{id}' (id=${vehicle.getId()})}"
-                           class="btn btn-sm btn-info edit-product">
-                            <i>Уреди</i>
-                        </a>
-                    </th:block>
+                    </div>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div class="text-right"><a href="/vehicles/add" class="btn btn-success">Add new vehicle</a></div>
+        <h1 th:if="${hasError}" th:text="${error}"></h1>
+        <th:block sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+            <div class="text-right"><a href="/vehicles/add" class="btn btn-outline-success">Add new vehicle</a></div>
+        </th:block>
     </div>
 </div>

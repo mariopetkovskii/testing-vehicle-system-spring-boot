@@ -1,0 +1,62 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/vehicles/add" method="POST">
+                    <input id="id" type="hidden" name="id" th:value="(${vehicles} != null ? ${vehicles.getId()} : '')">
+                    <div class="form-group">
+                        <select name="brand" class="form-control">
+                            <option th:if="${vehicles} != null"
+                                    th:selected="${vehicles.getVehicleBrand() != null && vehicles.getVehicleBrand().getId() == v.getId()}"
+                                    th:each="v : ${vehicles}"
+                                    th:value="${v.getId()}"
+                                    th:text="${v.getVehicleBrand()}">
+                            </option>
+                            <option th:if="${vehicles} == null"
+                                    th:each="brand : ${brands}"
+                                    th:value="${brand.getId()}"
+                                    th:text="${brand.getName()}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Model</label>
+                        <input type="text"
+                               class="form-control"
+                               id="model"
+                               name="model"
+                               th:value="(${vehicles} != null ? ${vehicles.getModel()} : '')"
+                               required
+                               placeholder="Enter product name">
+                    </div>
+                    <select name="type">
+                        <option value="CAR">CAR</option>
+                        <option value="MOTOR">MOTOR</option>
+                        <option value="TRUCK">TRUCK</option>
+                        <option value="BUS">BUS</option>
+                    </select>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text"
+                               class="form-control"
+                               id="price"
+                               name="price"
+                               th:value="(${vehicles} != null ? ${vehicles.getPrice()} : '')"
+                               required
+                               placeholder="Enter product name">
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/vehicles">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</th:block>

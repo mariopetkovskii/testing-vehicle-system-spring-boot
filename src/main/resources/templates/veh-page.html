@@ -16,13 +16,19 @@
                 <td th:text="${vehicle.getType()}"></td>
                 <td th:text="${vehicle.getPrice()}"></td>
                 <td class="text-right">
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <th:block>
                         <form th:action="@{'/vehicles/delete/{id}' (id=${vehicle.getId()})}" th:method="DELETE">
                             <button type="submit"
                                     class="btn btn-sm btn-danger">
                                 <i class="fa fa-trash">Delete</i>
                             </button>
                         </form>
+                    </th:block>
+                    <th:block>
+                        <a th:href="@{'/vehicles/edit-form/{id}' (id=${vehicle.getId()})}"
+                           class="btn btn-sm btn-info edit-product">
+                            <i>Уреди</i>
+                        </a>
                     </th:block>
                 </td>
             </tr>

@@ -36,31 +36,27 @@ public class VehicleController {
         return "master-template";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/edit-form/{id}")
     public String editVehiclePage(@PathVariable Long id, Model model){
         List<VehicleBrand> vehicleBrands = this.vehicleBrandService.findAll();
         model.addAttribute("brands", vehicleBrands);
         Vehicle vehicle = this.vehicleService.findById(id);
-        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("vehicles", vehicle);
         return "add-form";
     }
 
     @PostMapping("/add")
-    public String addVehicle(@RequestParam VehicleBrand brand,
+    public String addVehicle(@RequestParam(required = false)Long id,
+                            @RequestParam VehicleBrand brand,
                              @RequestParam String model,
                              @RequestParam VehicleType type,
                              @RequestParam Double price){
-        this.vehicleService.add(brand, model, type, price);
-        return "redirect:/vehicles";
-    }
-
-    @PostMapping("/edit/{id}")
-    public String editVehicle(@PathVariable Long id,
-                              @RequestParam VehicleBrand brand,
-                              @RequestParam String model,
-                              @RequestParam VehicleType type,
-                              @RequestParam Double price){
-        this.vehicleService.edit(id, brand, model, type, price);
+        if (id != null) {
+            this.vehicleService.edit(id, brand, model, type, price);
+        } else {
+            this.vehicleService.add(brand, model, type, price);
+        }
+        //this.vehicleService.add(brand, model, type, price);
         return "redirect:/vehicles";
     }
 

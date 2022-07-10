@@ -36,4 +36,48 @@ public class Vehicle {
         this.price = price;
         this.ratings = new ArrayList<>();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public VehicleBrand getVehicleBrand() {
+        return vehicleBrand;
+    }
+
+    public void setVehicleBrand(VehicleBrand vehicleBrand) {
+        this.vehicleBrand = vehicleBrand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public VehicleType getType() {
+        return type;
+    }
+
+    public void setType(VehicleType type) {
+        this.type = type;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public List<Integer> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Integer> ratings) {
+        this.ratings = ratings;
+    }
 }

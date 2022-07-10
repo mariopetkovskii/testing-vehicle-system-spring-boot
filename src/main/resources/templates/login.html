@@ -1,0 +1,24 @@
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+  <form class="col-md-8" method="post" action="/login">
+    <p style="height: 100px;"></p>
+<!--    <h2 class="form-signin-heading">Најава</h2>-->
+    <h3>Внеси е-маил и лозинка за најава</h3>
+    <br>
+    <p>
+      <label for="username" class="sr-only">E-mail</label>
+      <input type="text" id="username" name="username" class="form-control" placeholder="E-mail" required=""
+             autofocus="">
+    </p>
+    <br>
+    <p>
+      <label for="password" class="sr-only">Лозинка</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+             required="">
+    </p>
+
+    <div th:text="${param.error}" class="text-danger"></div>
+    <br>
+    <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Најава</button>
+  </form>
+<!--  <a href="/register" class="btn btn-block btn-light">Регистрирај се</a>-->
+</div>

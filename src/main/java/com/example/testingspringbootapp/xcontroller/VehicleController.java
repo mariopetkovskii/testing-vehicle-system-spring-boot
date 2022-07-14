@@ -70,7 +70,7 @@ public class VehicleController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @PostMapping("/add")
-    public String addVehicle(@RequestParam(required = false)Long id,
+    public String addVehicle(@RequestParam(required = false) Long id,
                              @RequestParam VehicleBrand brand,
                              @RequestParam String model,
                              @RequestParam VehicleType type,

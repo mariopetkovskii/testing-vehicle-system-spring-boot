@@ -30,7 +30,7 @@
             </thead>
             <tbody>
             <tr th:each="vehicle : ${vehicles}" class="vehicle">
-                <td th:text="${vehicle.getVehicleBrand().getName()}"></td>
+                <td th:text="${vehicle.getVehicleBrand()}"></td>
                 <td th:text="${vehicle.getModel()}"></td>
                 <td th:text="${vehicle.getType()}"></td>
                 <td th:text="${vehicle.getPrice()}"></td>
@@ -49,16 +49,16 @@
                                 <i>Edit</i>
                             </a> |
 
-
-
-                        <th:block sec:authorize="isAuthenticated()">
-                            <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}" th:method="POST">
-                                <button type="submit"
-                                        class="btn btn-sm btn-success pl-1 favorite-vehicle">
-                                    <i class="fa fa-trash">Add to favorites</i>
-                                </button>
-                            </form>
                         </th:block>
+                            <th:block sec:authorize="isAuthenticated()">
+                                <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}"
+                                      th:method="POST">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-success pl-1 favorite-vehicle">
+                                        <i class="fa fa-trash">Add to favorites</i>
+                                    </button>
+                                </form>
+                            </th:block>
 
                     </div>
                 </td>
@@ -67,7 +67,8 @@
         </table>
         <h1 th:if="${hasError}" th:text="${error}"></h1>
         <th:block sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
-            <div class="text-right"><a type="button" href="/vehicles/add" class="btn btn-outline-success add-vehicle-btn">Add new vehicle</a></div>
+            <div class="text-right"><a type="button" href="/vehicles/add"
+                                       class="btn btn-outline-success add-vehicle-btn">Add new vehicle</a></div>
         </th:block>
     </div>
 </div>

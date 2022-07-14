@@ -1,7 +1,9 @@
 package com.example.testingspringbootapp.selenium;
 
 import lombok.Getter;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+
 
 @Getter
 public class AbstractPage {
@@ -16,5 +18,7 @@ public class AbstractPage {
         String url = System.getProperty("geb.build.baseUrl", "http://localhost:9999") + relativeUrl;
         driver.get(url);
     }
+
+
 
 }

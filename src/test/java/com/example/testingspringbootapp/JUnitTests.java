@@ -63,12 +63,12 @@ public class JUnitTests {
         User user = this.userService.register("username", "password", "password", "name", "surname");
 
         verify(this.userService).register("username", "password", "password", "name", "surname");
-
         Assert.assertNotNull("User is null", user);
         Assert.assertEquals("name do not mach", "name", user.getName());
         Assert.assertEquals("surname do not mach", "surname", user.getSurname());
         Assert.assertEquals("password do not mach", "password", user.getPassword());
         Assert.assertEquals("username do not mach", "username", user.getUsername());
+
     }
 
     @Test

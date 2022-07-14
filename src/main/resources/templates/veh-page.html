@@ -30,7 +30,7 @@
             </thead>
             <tbody>
             <tr th:each="vehicle : ${vehicles}" class="vehicle">
-                <td th:text="${vehicle.getVehicleBrand().getName()}"></td>
+                <td th:text="${vehicle.getVehicleBrand()}"></td>
                 <td th:text="${vehicle.getModel()}"></td>
                 <td th:text="${vehicle.getType()}"></td>
                 <td th:text="${vehicle.getPrice()}"></td>
@@ -59,7 +59,6 @@
                                 </button>
                             </form>
                         </th:block>
-
                     </div>
                 </td>
             </tr>

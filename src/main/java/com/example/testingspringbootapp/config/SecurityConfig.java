@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/register", "/login").permitAll()
+                .antMatchers("/","/vehicles", "/register", "/login").permitAll()
                 .antMatchers("/vehicles/add", "/vehicles/edit-form/**", "/vehicles/delete/**", "/brands/add", "/brands/delete/**")
                 .hasRole("ADMINISTRATOR")
                 .anyRequest().authenticated()
@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .failureUrl("/login?error=BadCredentials")
-                .defaultSuccessUrl("/brands", true)
+                .defaultSuccessUrl("/vehicles", true)
                 .and()
                 .logout()
                 .logoutUrl("/logout")

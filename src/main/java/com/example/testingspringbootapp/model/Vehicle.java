@@ -16,6 +16,7 @@ public class Vehicle {
     @GeneratedValue
     private Long id;
 
+
     @ManyToOne
     private VehicleBrand vehicleBrand;
 

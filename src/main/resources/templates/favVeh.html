@@ -15,7 +15,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="vehicle : ${vehicles}">
+            <tr th:each="vehicle : ${vehicles}" class="favorite-vehicle">
                 <td th:text="${vehicle.getVehicleBrand().getName()}"></td>
                 <td th:text="${vehicle.getModel()}"></td>
                 <td th:text="${vehicle.getType()}"></td>
@@ -24,7 +24,7 @@
                     <th:block>
                         <form th:action="@{'/vehicles/favorite/remove/{id}' (id=${vehicle.getId()})}" th:method="POST">
                             <button type="submit"
-                                    class="btn btn-sm btn-danger">
+                                    class="btn btn-sm btn-danger remove-favorite-vehicle">
                                 <i class="fa fa-trash">Remove</i>
                             </button>
                         </form>

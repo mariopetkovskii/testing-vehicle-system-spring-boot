@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class VehicleServiceImpl implements VehicleService {
+public class  VehicleServiceImpl implements VehicleService {
 
     private final VehicleRepository vehicleRepository;
 

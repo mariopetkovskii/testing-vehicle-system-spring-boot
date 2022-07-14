@@ -36,7 +36,7 @@ public class DataInitializer {
         Vehicle vehicle1 = new Vehicle(vehicleBrand1, "5", VehicleType.CAR, 30000.0);
         Vehicle vehicle2 = new Vehicle(vehicleBrand2, "A3", VehicleType.CAR, 32550.0);
         Vehicle vehicle3 = new Vehicle(vehicleBrand3, "407", VehicleType.CAR, 31222.0);
-        Vehicle vehicle4 = new Vehicle(vehicleBrand4, "A180", VehicleType.CAR, 19000.0);
+        Vehicle vehicle4 = new Vehicle(vehicleBrand4, "A180", VehicleType.TRUCK, 19000.0);
 
         this.vehicleRepository.save(vehicle1);
         this.vehicleRepository.save(vehicle2);

@@ -58,7 +58,6 @@ public class SeleniumScenarioTest {
     private void initData(){
         if(!dataInitialized){
             vehicleBrand1=vehicleBrandService.add("Volkswagen");
-            vehicleBrand2=vehicleBrandService.add("Toyota");
 
 
             /*regularUser=userService.register(user,user,user,user,user);
@@ -74,12 +73,44 @@ public class SeleniumScenarioTest {
 
         VehiclesPage vehiclesPage=VehiclesPage.to(this.driver);
         vehiclesPage.assertElements(4,0,0,0,0);
+
+        vehiclesPage=VehiclesPage.to(this.driver);
+        vehiclesPage=vehiclesPage.filter(this.driver,"","","");
+        vehiclesPage.assertFilter(4);
+
+        vehiclesPage=vehiclesPage.filter(this.driver,"31000.0","","");
+        vehiclesPage.assertFilter(2);
+
+        vehiclesPage=vehiclesPage.filter(this.driver,"","CAR","");
+        vehiclesPage.assertFilter(3);
+
+        vehiclesPage=vehiclesPage.filter(this.driver,"","","A3");
+        vehiclesPage.assertFilter(1);
+
+        vehiclesPage=vehiclesPage.filter(this.driver,"32000.0","CAR","");
+        vehiclesPage.assertFilter(2);
+
+        vehiclesPage=vehiclesPage.filter(this.driver,"35000.0","","407");
+        vehiclesPage.assertFilter(1);
+
+        vehiclesPage=vehiclesPage.filter(this.driver,"","CAR","5");
+        vehiclesPage.assertFilter(1);
+
+        vehiclesPage=vehiclesPage.filter(this.driver,"35000.0","CAR","A3");
+        vehiclesPage.assertFilter(1);
+
         LoginPage loginPage=LoginPage.openLogin(this.driver);
 
         vehiclesPage=LoginPage.doLogin(this.driver,loginPage,admin,admin);
         vehiclesPage.assertElements(4,4,4,4,1);
 
-        vehiclesPage=AddOrEditVehicle.addVehicle(this.driver,vehicleBrand2.getName(),"corolla", String.valueOf(VehicleType.CAR),"8000.0");
+        BrandsPage brandsPage=BrandsPage.to(this.driver);
+        brandsPage.assertElements(5,1);
+
+        brandsPage=AddBrand.addBrand(this.driver,"Ford");
+        brandsPage.assertElements(6,1);
+
+        vehiclesPage=AddOrEditVehicle.addVehicle(this.driver,"Ford","fiesta", String.valueOf(VehicleType.CAR),"4000.0");
         vehiclesPage.assertElements(5,5,5,5,1);
 
         vehiclesPage=AddOrEditVehicle.addVehicle(this.driver,vehicleBrand1.getName(),"golf", String.valueOf(VehicleType.CAR),"10000.0");
@@ -87,7 +118,6 @@ public class SeleniumScenarioTest {
 
         vehiclesPage.getDeleteButtons().get(1).click();
         vehiclesPage.assertElements(5,5,5,5,1);
-
 
         vehiclesPage=AddOrEditVehicle.editVehicle(this.driver,vehiclesPage.getEditButtons().get(0),"Audi","A3", String.valueOf(VehicleType.CAR),"32550.0");
         vehiclesPage=VehiclesPage.to(this.driver);
@@ -98,6 +128,10 @@ public class SeleniumScenarioTest {
         vehiclesPage=LoginPage.doLogin(this.driver,loginPage,user,user);
         vehiclesPage.assertElements(5,0,0,5,0);
 
+        brandsPage=BrandsPage.to(this.driver);
+        brandsPage.assertElements(6,0);
+
+        vehiclesPage=VehiclesPage.to(this.driver);
         vehiclesPage.getFavoriteButtons().get(0).click();
         Assert.assertEquals("url do not match","http://localhost:9999/favorite",this.driver.getCurrentUrl());
 

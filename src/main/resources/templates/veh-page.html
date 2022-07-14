@@ -49,16 +49,20 @@
                                 <i>Edit</i>
                             </a> |
 
-
-
-                        <th:block sec:authorize="isAuthenticated()">
-                            <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}" th:method="POST">
-                                <button type="submit"
-                                        class="btn btn-sm btn-success pl-1 favorite-vehicle">
-                                    <i class="fa fa-trash">Add to favorites</i>
-                                </button>
-                            </form>
                         </th:block>
+<<<<<<< HEAD
+=======
+                            <th:block sec:authorize="isAuthenticated()">
+                                <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}"
+                                      th:method="POST">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-success pl-1 favorite-vehicle">
+                                        <i class="fa fa-trash">Add to favorites</i>
+                                    </button>
+                                </form>
+                            </th:block>
+
+>>>>>>> aaffef971ac351f4c080337ea3b9f201320e3280
                     </div>
                 </td>
             </tr>
@@ -66,7 +70,8 @@
         </table>
         <h1 th:if="${hasError}" th:text="${error}"></h1>
         <th:block sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
-            <div class="text-right"><a type="button" href="/vehicles/add" class="btn btn-outline-success add-vehicle-btn">Add new vehicle</a></div>
+            <div class="text-right"><a type="button" href="/vehicles/add"
+                                       class="btn btn-outline-success add-vehicle-btn">Add new vehicle</a></div>
         </th:block>
     </div>
 </div>

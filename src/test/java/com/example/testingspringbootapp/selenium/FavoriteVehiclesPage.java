@@ -27,7 +27,7 @@ public class FavoriteVehiclesPage extends AbstractPage{
     }
 
     public void assertElements(int favoriteVehiclesNumber, int removeButtons){
-        Assert.assertEquals("rows do not match",favoriteVehiclesNumber,this.getFavoriteRows().size());
-        Assert.assertEquals("remove do not match",removeButtons,this.getRemoveButtons().size());
+        Assert.assertEquals("favorite rows do not match",favoriteVehiclesNumber,this.getFavoriteRows().size());
+        Assert.assertEquals("remove favorite do not match",removeButtons,this.getRemoveButtons().size());
     }
 }

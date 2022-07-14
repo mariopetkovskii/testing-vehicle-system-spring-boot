@@ -37,7 +37,7 @@ public class VehicleController {
             model.addAttribute("error", error);
         }
         List<Vehicle> vehicleList;
-        if(price == null && type == null && containsModel == null){
+        if((price == null || price.equals("")) && (type == null || type.equals("")) && (containsModel == null || containsModel.equals(""))){
             vehicleList = this.vehicleService.findAll();
         }
         else{

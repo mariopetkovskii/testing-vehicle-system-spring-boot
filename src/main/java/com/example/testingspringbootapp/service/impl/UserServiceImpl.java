@@ -4,6 +4,7 @@ import com.example.testingspringbootapp.config.VehicleAlreadyInFavoritesExceptio
 import com.example.testingspringbootapp.model.Role;
 import com.example.testingspringbootapp.model.User;
 import com.example.testingspringbootapp.model.Vehicle;
+import com.example.testingspringbootapp.model.exceptions.InvalidUsernameOrPasswordException;
 import com.example.testingspringbootapp.model.exceptions.InvalidVehicleIdException;
 import com.example.testingspringbootapp.model.exceptions.NotGoodException;
 import com.example.testingspringbootapp.model.exceptions.PasswordsDoNotMatchException;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(String username, String password, String repeatPassword, String name, String surname) {
         if (username==null || username.isEmpty()  || password==null || password.isEmpty())
-            throw new PasswordsDoNotMatchException();
+            throw new InvalidUsernameOrPasswordException();
         if (!password.equals(repeatPassword))
             throw new PasswordsDoNotMatchException();
         if(this.userRepository.findByUsername(username).isPresent())

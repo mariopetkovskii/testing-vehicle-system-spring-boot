@@ -71,14 +71,15 @@ public class VehicleController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @PostMapping("/add")
     public String addVehicle(@RequestParam(required = false) Long id,
-                             @RequestParam VehicleBrand brand,
+                             @RequestParam String brand,
                              @RequestParam String model,
                              @RequestParam VehicleType type,
                              @RequestParam Double price){
+        VehicleBrand vehicleBrand = this.vehicleBrandService.findByName(brand);
         if (id != null) {
-            this.vehicleService.edit(id, brand, model, type, price);
+            this.vehicleService.edit(id, vehicleBrand, model, type, price);
         } else {
-            this.vehicleService.add(brand, model, type, price);
+            this.vehicleService.add(vehicleBrand, model, type, price);
         }
         //this.vehicleService.add(brand, model, type, price);
         return "redirect:/vehicles";
@@ -120,4 +121,5 @@ public class VehicleController {
         model.addAttribute("bodyContent", "favVeh");
         return "master-template";
     }
+
 }

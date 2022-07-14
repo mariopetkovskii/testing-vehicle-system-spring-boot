@@ -2,12 +2,15 @@ package com.example.testingspringbootapp;
 
 import com.example.testingspringbootapp.model.*;
 import com.example.testingspringbootapp.repository.UserRepository;
+import com.example.testingspringbootapp.selenium.LoginPage;
+import com.example.testingspringbootapp.selenium.VehiclesPage;
 import com.example.testingspringbootapp.service.UserService;
 import com.example.testingspringbootapp.service.VehicleBrandService;
 import com.example.testingspringbootapp.service.VehicleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -66,6 +69,8 @@ class TestingSpringBootAppApplicationTests {
     @Autowired
     UserDetailsService userDetailsService;
 
+    HtmlUnitDriver driver;
+
     private static boolean dataInitialized = false;
 
     private static VehicleBrand vehicleBrand;
@@ -103,6 +108,34 @@ class TestingSpringBootAppApplicationTests {
     }
 
     @Test
+    public void testAddVehicle() throws Exception{
+        MockHttpServletRequestBuilder vehicleRequest = MockMvcRequestBuilders.post("/vehicles/add")
+                .param("brand", "Toyota")
+                .param("model", "Corolla")
+                .param("type", VehicleType.CAR.name())
+                .param("price", "30000.0");
+        this.mockMvc.perform(vehicleRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/vehicles"));
+    }
+
+    @Test
+    public void testEditVehicle() throws Exception{
+        Vehicle vehicle = this.vehicleService.add(vehicleBrand, "M8", VehicleType.CAR, 30000.0);
+        MockHttpServletRequestBuilder vehicleRequest = MockMvcRequestBuilders.post("/vehicles/add")
+                .param("id", vehicle.getId().toString())
+                .param("brand", "Toyota")
+                .param("model", "Corolla")
+                .param("type", VehicleType.CAR.name())
+                .param("price", "30000.0");
+        this.mockMvc.perform(vehicleRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/vehicles"));
+    }
+
+    @Test
     public void testGetVehicles() throws Exception {
         MockHttpServletRequestBuilder vehicleRequest = MockMvcRequestBuilders.get("/vehicles");
         this.mockMvc.perform(vehicleRequest)
@@ -111,6 +144,7 @@ class TestingSpringBootAppApplicationTests {
                 .andExpect(MockMvcResultMatchers.model().attributeExists("vehicles"))
                 .andExpect(MockMvcResultMatchers.model().attribute("bodyContent", "veh-page"))
                 .andExpect(MockMvcResultMatchers.view().name("master-template"));
+
     }
 
     @Test
@@ -129,26 +163,36 @@ class TestingSpringBootAppApplicationTests {
     public void testAddBrand() throws Exception{
         MockHttpServletRequestBuilder vehRequest = MockMvcRequestBuilders
                 .post("/brands/add")
-                .param("name", "BMW")
-                .with(user("admin").password("admin").roles("ADMINISTRATOR"));
+                .param("name", "BMW");
         this.mockMvc.perform(vehRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/brands"));
     }
 
+
+
     @Test
-    public void getAddBrandPageWithAdmin() throws Exception{
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get("/brands/add")
-                .with(user("admin").password("admin").roles("ADMINISTRATOR"));
-        this.mockMvc.perform(request)
+    public void testGetBrands() throws Exception {
+        MockHttpServletRequestBuilder vehicleRequest = MockMvcRequestBuilders.get("/brands");
+        this.mockMvc.perform(vehicleRequest)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("bodyContent", "add-brand"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("brands"))
+                .andExpect(MockMvcResultMatchers.model().attribute("bodyContent", "brands"))
                 .andExpect(MockMvcResultMatchers.view().name("master-template"));
     }
 
+    @Test
+    public void testDeleteBrand() throws Exception
+    {
+        VehicleBrand vehicleBrand = this.vehicleBrandService.add("Test");
+        MockHttpServletRequestBuilder vehicleRequest = MockMvcRequestBuilders.post("/brands/delete/" + vehicleBrand.getId());
+        this.mockMvc.perform(vehicleRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/brands"));
+    }
 
 
 }

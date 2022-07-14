@@ -48,16 +48,9 @@
                                class="btn btn-sm btn-info pl-1 edit-vehicle">
                                 <i>Edit</i>
                             </a> |
-                        </th:block>
-<<<<<<< HEAD
-                        <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}"
-                              th:method="POST">
-                            <button type="submit"
-                                    class="btn btn-sm btn-success pl-1">
-                                <i class="fa fa-trash">Add to favorites</i>
-                            </button>
-                        </form>
-=======
+
+
+
                         <th:block sec:authorize="isAuthenticated()">
                             <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}" th:method="POST">
                                 <button type="submit"
@@ -66,7 +59,7 @@
                                 </button>
                             </form>
                         </th:block>
->>>>>>> ce4e8c49036232c45fda6d7d3d45d6a15ece2688
+
                     </div>
                 </td>
             </tr>

@@ -49,7 +49,8 @@
                                 <i>Edit</i>
                             </a> |
                         </th:block>
-                        <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}" th:method="POST">
+                        <form th:action="@{'/vehicles/favorite/add/{id}' (id=${vehicle.getId()})}"
+                              th:method="POST">
                             <button type="submit"
                                     class="btn btn-sm btn-success pl-1">
                                 <i class="fa fa-trash">Add to favorites</i>

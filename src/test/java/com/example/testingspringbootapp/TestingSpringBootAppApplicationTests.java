@@ -10,9 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +29,14 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 
 @ActiveProfiles("test")
@@ -49,6 +59,9 @@ class TestingSpringBootAppApplicationTests {
 
     @Autowired
     VehicleBrandService vehicleBrandService;
+
+    @MockBean
+    AuthenticationManager authenticationManager;
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -111,28 +124,31 @@ class TestingSpringBootAppApplicationTests {
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/vehicles"));
     }
 
+
     @Test
-    public void testAddVehicle() throws Exception{
-        Vehicle vehicle = this.vehicleService.add(vehicleBrand, "M8", VehicleType.CAR, 30000.0);
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .post("/vehicles/add")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(vehicle))
-                .accept(MediaType.APPLICATION_JSON));
+    public void testAddBrand() throws Exception{
+        MockHttpServletRequestBuilder vehRequest = MockMvcRequestBuilders
+                .post("/brands/add")
+                .param("name", "BMW")
+                .with(user("admin").password("admin").roles("ADMINISTRATOR"));
+        this.mockMvc.perform(vehRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/brands"));
     }
 
-//    @Test
-//    @WithMockUser(username = "test", roles = {"USER"})
-//    public void addFavoriteVehicle() throws Exception{
-//        Vehicle vehicle = this.vehicleService.add(vehicleBrand, "M8", VehicleType.CAR, 30000.0);
-////        Authentication authentication = new TestingAuthenticationToken("test", "test", "ROLE_USER");
-//        MockHttpServletRequestBuilder vehicleRequest = MockMvcRequestBuilders.post("/vehicles/favorite/add/" + vehicle.getId())
-//                .with(SecurityMockMvcRequestPostProcessors.user("test").roles("USER"))
-//                .with(SecurityMockMvcRequestPostProcessors.csrf());
-//        this.mockMvc.perform(vehicleRequest)
-//                .andDo(MockMvcResultHandlers.print())
-//                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-//                .andExpect(MockMvcResultMatchers.redirectedUrl("/vehicles"));
-//
-//    }
+    @Test
+    public void getAddBrandPageWithAdmin() throws Exception{
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get("/brands/add")
+                .with(user("admin").password("admin").roles("ADMINISTRATOR"));
+        this.mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attribute("bodyContent", "add-brand"))
+                .andExpect(MockMvcResultMatchers.view().name("master-template"));
+    }
+
+
+
 }

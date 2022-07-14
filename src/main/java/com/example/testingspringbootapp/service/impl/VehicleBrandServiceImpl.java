@@ -41,4 +41,9 @@ public class VehicleBrandServiceImpl implements VehicleBrandService {
     public void delete(Long id) {
         this.vehicleBrandRepository.deleteById(id);
     }
+
+    @Override
+    public VehicleBrand findByName(String name) {
+        return this.vehicleBrandRepository.findByName(name);
+    }
 }

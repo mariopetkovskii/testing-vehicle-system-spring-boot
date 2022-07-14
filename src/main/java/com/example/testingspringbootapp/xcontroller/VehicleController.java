@@ -92,7 +92,8 @@ public class VehicleController {
     }
 
     @PostMapping("/favorite/add/{id}")
-    public String addFavVeh(@PathVariable Long id, Authentication auth){
+    public String addFavVeh(@PathVariable Long id,
+                            Authentication auth){
         User user = (User) auth.getPrincipal();
         try{
             this.userService.addVehicleToFavourites(user, id);
@@ -104,7 +105,8 @@ public class VehicleController {
     }
 
     @PostMapping("/favorite/remove/{id}")
-    public String removeFavVeh(@PathVariable Long id, Authentication auth){
+    public String removeFavVeh(@PathVariable Long id,
+                               Authentication auth){
         User user = (User) auth.getPrincipal();
         this.userService.removeVehicleFromFavorites(user, id);
         return "redirect:/favorite";

@@ -9,5 +9,8 @@ public interface UserService extends UserDetailsService {
 
     User addVehicleToFavourites(User user, Long id);
 
+
     User removeVehicleFromFavorites(User user, Long id);
+
+
 }

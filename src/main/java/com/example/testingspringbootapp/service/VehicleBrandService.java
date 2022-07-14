@@ -14,4 +14,6 @@ public interface VehicleBrandService {
     VehicleBrand edit(Long id, String name);
 
     void delete(Long id);
+
+    VehicleBrand findByName(String name);
 }

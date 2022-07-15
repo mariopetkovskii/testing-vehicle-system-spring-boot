@@ -102,17 +102,20 @@ Testing that certain exceptions are thrown are be done with the org.junit.jupite
 3.1. https://www.vogella.com/tutorials/JUnit/article.html Full documentation for JUnit testing
 
 ```
-package demo.tests;
-import static org.junit.Assert.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-public class JUnitProgram {
-    @Test
-    public void test_JUnit() {
-        System.out.println("This is the testcase in this class");
-        String str1="This is the testcase in this class";
-        assertEquals("This is the testcase in this class", str1);
+ @Test
+    public void getVehicleTest()
+    {
+        List<Vehicle> list = new ArrayList<Vehicle>();
+        VehicleBrand vehicleBrand=new VehicleBrand("BMW");
+        Vehicle vehicle1 = new Vehicle(vehicleBrand, "B", VehicleType.CAR, 2000.00);
+        Vehicle vehicle2 = new Vehicle(vehicleBrand, "Q7", VehicleType.CAR, 2000.00);
+        Vehicle vehicle3 = new Vehicle(vehicleBrand, "B", VehicleType.CAR, 2000.00);
+        list.add(vehicle1);
+        list.add(vehicle2);
+        list.add(vehicle3);
+        when(vehicleRepository.findAll()).thenReturn(list);
+        List<Vehicle> vehicles = vehicleRepository.findAll();
+        assertEquals(3, list.size());
+        verify(vehicleRepository, times(1)).findAll();
     }
-}
 ```

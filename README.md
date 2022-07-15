@@ -102,7 +102,12 @@ Testing that certain exceptions are thrown are be done with the org.junit.jupite
 3.1. https://www.vogella.com/tutorials/JUnit/article.html Full documentation for JUnit testing
 
 ```
- @Test
+import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+public class JUnitProgram {
+    @Test
     public void getVehicleTest()
     {
         List<Vehicle> list = new ArrayList<Vehicle>();
@@ -118,4 +123,5 @@ Testing that certain exceptions are thrown are be done with the org.junit.jupite
         assertEquals(3, list.size());
         verify(vehicleRepository, times(1)).findAll();
     }
+}
 ```

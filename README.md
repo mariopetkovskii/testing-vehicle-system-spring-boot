@@ -34,6 +34,65 @@ Benefits of Selenium and why it is a good tool for automation testing:
 
 - Advanced User Input: With WebDriver it is possible to request clicking of the browser back and front buttons. A practical feature when testing money        transfer applications for example. This feature is not found in many tools, especially open source.
 
+```
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class SeleniumScenarioTest {
+
+    @Autowired
+    VehicleService vehicleService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    VehicleBrandService vehicleBrandService;
+
+    private HtmlUnitDriver driver;
+
+    private static VehicleBrand vehicleBrand1;
+    private static VehicleBrand vehicleBrand2;
+
+    private static String user = "user";
+    private static String admin = "admin";
+
+    private static boolean dataInitialized = false;
+
+    @BeforeEach
+    private void setup(){
+        this.driver=new HtmlUnitDriver(true);
+        initData();
+    }
+
+    @AfterEach
+    public void destroy(){
+        if(this.driver != null){
+            this.driver.close();
+        }
+    }
+
+    private void initData(){
+        if(!dataInitialized){
+            vehicleBrand1=vehicleBrandService.add("Volkswagen");
+
+            regularUser=userService.register(user,user,user,user,user);
+            adminUser=userService.register(admin,admin,admin,admin,admin);
+            adminUser.setRole(Role.ROLE_ADMINISTRATOR);
+
+            dataInitialized=true;
+        }
+    }
+    
+    @Test
+    public void testAddVehicleWithAdminAuth() throws Exception{
+        VehiclesPage vehiclesPage=VehiclesPage.to(this.driver);
+        LoginPage loginPage=LoginPage.openLogin(this.driver);
+        vehiclesPage=LoginPage.doLogin(this.driver,loginPage,admin,admin);
+        vehiclesPage=AddOrEditVehicle.addVehicle(this.driver,vehicleBrand1.getName(),"golf", String.valueOf(VehicleType.CAR),"10000.0");
+        vehiclesPage.assertElements(1,1,1,1,1);
+    }
+```
+
 # MockMvc
 
 MockMvc is defined as a main entry point for server-side Spring MVC testing. Tests with MockMvc lie somewhere between between unit and integration tests. They aren't unit tests because endpoints are tested in integration with a Mocked MVC container with mocked inputs and dependencies.

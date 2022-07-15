@@ -66,13 +66,17 @@ class ExampleTests {
 	}
 
 	@Test
-	void getAccount() throws Exception {
-		this.mockMvc.perform(get("/accounts/1")
-				.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(content().contentType("application/json"))
-			.andExpect(jsonPath("$.name").value("Lee"));
-	}
+    	public void testAddVehicle() throws Exception{
+        MockHttpServletRequestBuilder vehicleRequest = MockMvcRequestBuilders.post("/vehicles/add")
+                .param("brand", "Toyota")
+                .param("model", "Corolla")
+                .param("type", VehicleType.CAR.name())
+                .param("price", "30000.0");
+        this.mockMvc.perform(vehicleRequest)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/vehicles"));
+    }
 }
 ```
 

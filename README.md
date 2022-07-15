@@ -2,9 +2,37 @@
 
 # Selenium
 
-Selenium is an open source umbrella project for a range of tools and libraries aimed at supporting browser automation. It provides a playback tool for authoring functional tests across most modern web browsers, without the need to learn a test scripting language.
+So, what actually is the Selenium framework? Simply put, Selenium is a popular automation testing suite which can be used to automate the desktop and mobile web browser interactions. You can perform automation testing by writing code in any of your preferred language supported by Selenium and can easily run your automation scripts to automate testing of an application or a process.
 
-Selenium is the first thing that comes to mind when one is planning to automate the testing of web applications. Selenium is a beneficial tool because it is not only open source but also a portable software testing framework for web applications that support multiple languages like Java, C#, Ruby, Python. Choosing the right language depends on the application under test, the supporting community, available test automation frameworks, usability, elegance, and of course, seamless build integration.
+When people think of Selenium, they probably think of the Selenium WebDriver, which is understandable as it is the most used tool in the suite. But to fully utilize Selenium and choose the correct tool for the job, it is good to know what parts make up the popular testing system.
+
+Selenium WebDriver is a browser-specific driver which helps in accessing and launching the different browsers whether it’s desktop browsers or mobile browsers. That means it does not support for example Windows applications. It provides an interface to write and run automation scripts. Every browser has different drivers to run tests.
+
+WebDriver has the capability to test modern and dynamic websites, sites where content is changing dynamically with a click of a button for example. As you will find out later when we go through the architecture, it works by interacting with the browser in more or less the same way as a real user would.
+
+The Selenium WebDriver architecture works in the following way. You write your tests in your preferred programming language, this is communicated in JSON over HTTP (REST API) to the browser-specific driver which then, in turn, instantiate and communicates via HTTP to the browser itself and the browser communicates back with an HTTP response.
+
+Benefits of Selenium and why it is a good tool for automation testing:
+
+- Open Source: Selenium is open source, this means that no licensing or cost is required, it is totally free to download and use. This is not the case for many other automation tools out there.
+
+- Mimic User Actions: As stated earlier, Selenium WebDriver is able to mimic user input, in real scenarios, you are able to automate events like key presses, mouse clicks, drag and drop, click and hold, selecting and much more.
+
+- Easy Implementation: Selenium WebDriver is known for being a user-friendly automation tool. Selenium being Open Source means that users are able to develop extensions for their own needs.
+
+- Tool for every scenario: As mentioned earlier, Selenium is a suite of tools, and you will most likely find something that fits your scenario and your way of working.
+
+- Language Support: One big benefit is multilingual support. Selenium supports all major languages like Java, JavaScript, Python, Ruby, C sharp, Perl, .Net and PHP, giving the developer a lot of freedom and flexibility.
+
+- Browser, Operating System & Device support: Selenium supports many different browsers Chrome, Firefox, Opera, Internet Explorer, Edge, and Safari as well as operating systems (Windows, Linux, Mac)
+
+- Framework Support: Selenium also supports a multitude of frameworks like Maven, Junit, TestNG to make it easier to automate testing. CI and CD tools like Jenkins is also supported, for automating the deployment process.
+
+- Reusability: Scripts written for WebDriver is cross-browser compatible. Testers can therefore run multiple testing scenarios with the same base.
+
+- Community Support: The Selenium community is quite active and open. Therefore, there is a lot of information and help available when needed.
+
+- Advanced User Input: With WebDriver it is possible to request clicking of the browser back and front buttons. A practical feature when testing money        transfer applications for example. This feature is not found in many tools, especially open source.
 
 # MockMvc
 

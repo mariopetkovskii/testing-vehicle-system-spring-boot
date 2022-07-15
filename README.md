@@ -96,3 +96,19 @@ JUnit 5 comes with multiple assert statements, which allows you to test your cod
 Testing that certain exceptions are thrown are be done with the org.junit.jupiter.api.Assertions.expectThrows() assert statement. You define the expected Exception class and provide code that should throw the exception.
 
 3.1. https://www.vogella.com/tutorials/JUnit/article.html Full documentation for JUnit testing
+
+```
+package demo.tests;
+import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+public class JUnitProgram {
+    @Test
+    public void test_JUnit() {
+        System.out.println("This is the testcase in this class");
+        String str1="This is the testcase in this class";
+        assertEquals("This is the testcase in this class", str1);
+    }
+}
+```

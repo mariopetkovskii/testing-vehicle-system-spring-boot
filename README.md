@@ -22,6 +22,32 @@ Spring MVC Test also provides client-side support for testing code that uses the
 
 Spring MVC Test builds on the familiar “mock” implementations of the Servlet API available in the spring-test module. This allows performing requests and generating responses without the need for running in a Servlet container. For the most part, everything should work as it does at runtime with a few notable exceptions, as explained in spring-mvc-test-vs-end-to-end-integration-tests
 
+Example: 
+```
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.;
+
+@SpringJUnitWebConfig(locations = "test-servlet-context.xml")
+class ExampleTests {
+
+	MockMvc mockMvc;
+
+	@BeforeEach
+	void setup(WebApplicationContext wac) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+	}
+
+	@Test
+	void getAccount() throws Exception {
+		this.mockMvc.perform(get("/accounts/1")
+				.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType("application/json"))
+			.andExpect(jsonPath("$.name").value("Lee"));
+	}
+}
+```
+
 # JUnit
 
 JUnit is a Java unit testing framework that's one of the best test methods for regression testing. An open-source framework, it is used to write and run repeatable automated tests. As with anything else, the JUnit testing framework has evolved over time.

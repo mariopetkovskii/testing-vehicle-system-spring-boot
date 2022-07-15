@@ -103,9 +103,6 @@ class TestingSpringBootAppApplicationTests {
         dataInitialized = true;
     }
 
-    @Test
-    void contextLoads() {
-    }
 
     @Test
     public void testAddVehicle() throws Exception{
@@ -169,8 +166,6 @@ class TestingSpringBootAppApplicationTests {
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/brands"));
     }
-
-
 
     @Test
     public void testGetBrands() throws Exception {

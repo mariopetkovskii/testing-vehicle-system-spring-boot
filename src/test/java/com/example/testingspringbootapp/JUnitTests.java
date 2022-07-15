@@ -156,5 +156,4 @@ public class JUnitTests {
         verify(vehicleBrandRepository, times(1)).findAll();
     }
 
-
 }
